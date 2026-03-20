@@ -40,7 +40,7 @@ export default function SitesPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold text-gray-900">Sites</h1>
-            {data && (
+            {Array.isArray(data) && (
               <p className="text-sm text-gray-500">{data.filter((s) => s.isActive).length} site{data.filter((s) => s.isActive).length > 1 ? "s" : ""} actif{data.filter((s) => s.isActive).length > 1 ? "s" : ""}</p>
             )}
           </div>
@@ -61,7 +61,7 @@ export default function SitesPage() {
           [1, 2, 3].map((i) => (
             <div key={i} className="h-24 bg-white rounded-2xl shadow-sm animate-pulse" />
           ))
-        ) : !data || data.length === 0 ? (
+        ) : !Array.isArray(data) || data.length === 0 ? (
           <div className="bg-white rounded-2xl p-10 shadow-sm text-center">
             <p className="text-gray-500">Aucun site</p>
             <p className="text-sm text-gray-400 mt-1">Appuyez sur "Ajouter" pour commencer</p>

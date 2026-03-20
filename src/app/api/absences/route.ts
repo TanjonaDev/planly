@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
 
   // SMS au gérant
   await sendAbsenceAlert(
-    employee.company.owner.phone,
+    employee.company.owner.phone ?? "",
     `${session.user.firstName} ${session.user.lastName}`,
     mission.site.name,
     `${mission.startTime}–${mission.endTime}`

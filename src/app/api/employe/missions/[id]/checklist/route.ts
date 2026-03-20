@@ -60,6 +60,7 @@ export async function GET(
       isRequired: item.isRequired,
       photoRequired: item.photoRequired,
       isCompleted: result?.isCompleted ?? false,
+      photoUrl: result?.photoUrl ?? null,
       resultId: result?.id ?? null,
     };
   });
@@ -90,6 +91,7 @@ const patchSchema = z.object({
   itemLabel: z.string(),
   category: z.string().nullable(),
   isCompleted: z.boolean(),
+  photoUrl: z.string().url().optional().nullable(),
 });
 
 export async function PATCH(
@@ -123,7 +125,7 @@ export async function PATCH(
     return NextResponse.json({ error: "Données invalides" }, { status: 400 });
   }
 
-  const { itemLabel, category, isCompleted } = result.data;
+  const { itemLabel, category, isCompleted, photoUrl } = result.data;
 
   // Upsert manuel (pas de contrainte unique sur la combinaison dans le schema)
   const existing = await prisma.checklistResult.findFirst({
@@ -137,6 +139,7 @@ export async function PATCH(
       data: {
         isCompleted,
         completedAt: isCompleted ? new Date() : null,
+        ...(photoUrl !== undefined && { photoUrl }),
       },
     });
   } else {
@@ -147,6 +150,7 @@ export async function PATCH(
         category,
         isCompleted,
         completedAt: isCompleted ? new Date() : null,
+        photoUrl: photoUrl ?? null,
       },
     });
   }

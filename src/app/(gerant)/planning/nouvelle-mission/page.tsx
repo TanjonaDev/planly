@@ -1,13 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 type Site = { id: string; name: string };
 type Employee = { id: string; firstName: string; lastName: string };
 
-export default function NouvelleMissionPage() {
+function NouvelleMissionForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -185,5 +185,13 @@ export default function NouvelleMissionPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function NouvelleMissionPage() {
+  return (
+    <Suspense>
+      <NouvelleMissionForm />
+    </Suspense>
   );
 }

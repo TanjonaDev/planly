@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
   // Suppression immédiate — usage unique
   await prisma.verificationToken.deleteMany({ where: { identifier: phone } });
 
-  const user = await prisma.user.findUnique({ where: { phone } });
+  const user = await prisma.user.findFirst({ where: { phone } });
   if (!user || !user.isActive) {
     return NextResponse.json(
       { error: "Utilisateur introuvable" },

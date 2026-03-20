@@ -83,7 +83,7 @@ export async function POST(req: NextRequest) {
     }),
   ]);
 
-  const missionDateStrStr = format(new Date(absence.mission.date), "d MMMM", { locale: fr });
+  const missionDateStr = format(new Date(absence.mission.date), "d MMMM", { locale: fr });
 
   // Prévenir le gérant
   const company = await prisma.company.findUnique({
@@ -92,7 +92,7 @@ export async function POST(req: NextRequest) {
   });
   if (company) {
     await sendSMS(
-      company.owner.phone,
+      company.owner.phone ?? "",
       `✅ ${replacementUser.firstName} ${replacementUser.lastName} a accepté de remplacer ${absence.employee.user.firstName} pour ${absence.mission.site.name} le ${missionDateStr}.`
     );
   }

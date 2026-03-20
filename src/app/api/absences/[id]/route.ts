@@ -125,7 +125,7 @@ export async function PATCH(
   });
 
   await sendReplacementRequest(
-    employee.user.phone,
+    employee.user.phone ?? "",
     employee.user.firstName,
     mission.site.name,
     missionDate,

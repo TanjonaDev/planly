@@ -48,7 +48,7 @@ export default function EmployesPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-xl font-bold text-gray-900">Équipe</h1>
-            {data && (
+            {Array.isArray(data) && (
               <p className="text-sm text-gray-500">{data.length} membre{data.length > 1 ? "s" : ""} actif{data.length > 1 ? "s" : ""}</p>
             )}
           </div>
@@ -69,7 +69,7 @@ export default function EmployesPage() {
           [1, 2, 3, 4].map((i) => (
             <div key={i} className="h-20 bg-white rounded-2xl shadow-sm animate-pulse" />
           ))
-        ) : !data || data.length === 0 ? (
+        ) : !Array.isArray(data) || data.length === 0 ? (
           <div className="bg-white rounded-2xl p-10 shadow-sm text-center">
             <p className="text-gray-500">Aucun employé</p>
             <p className="text-sm text-gray-400 mt-1">Appuyez sur "Ajouter" pour commencer</p>
@@ -95,8 +95,8 @@ export default function EmployesPage() {
                     <h3 className="font-bold text-gray-900 mb-0.5">
                       {emp.firstName} {emp.lastName}
                       {!emp.isActive && (
-                        <span className="ml-2 text-xs text-gray-400 font-normal">inactif</span>
-                      )}
+                          <span className="ml-2 text-xs text-gray-400 font-normal">inactif</span>
+                        )}
                     </h3>
                     <p className="text-sm text-gray-500 truncate">{emp.zones.join(", ")}</p>
                   </Link>

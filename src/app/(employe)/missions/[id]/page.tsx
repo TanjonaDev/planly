@@ -2,7 +2,7 @@
 
 import useSWR from "swr";
 import { useParams, useRouter } from "next/navigation";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import {
   ArrowLeft,
   MapPin,
@@ -11,6 +11,8 @@ import {
   Circle,
   Flag,
   ClipboardList,
+  Camera,
+  Loader2,
 } from "lucide-react";
 import { clsx } from "clsx";
 
@@ -22,6 +24,7 @@ type ChecklistItem = {
   isRequired: boolean;
   photoRequired: boolean;
   isCompleted: boolean;
+  photoUrl: string | null;
   resultId: string | null;
 };
 
@@ -53,9 +56,13 @@ export default function ChecklistPage() {
   const router = useRouter();
   const [completing, setCompleting] = useState(false);
   const [toggling, setToggling] = useState<string | null>(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [pendingPhotoItemId, setPendingPhotoItemId] = useState<string | null>(null);
 
   // Optimistic local state pour les items
   const [localOverrides, setLocalOverrides] = useState<Record<string, boolean>>({});
+  const [localPhotos, setLocalPhotos] = useState<Record<string, string>>({});
 
   const { data, mutate } = useSWR<ChecklistData>(
     `/api/employe/missions/${id}/checklist`,
@@ -101,17 +108,63 @@ export default function ChecklistPage() {
     }
   }
 
+  async function openPhotoPicker(item: ChecklistItem) {
+    setPendingPhotoItemId(item.id);
+    fileInputRef.current?.click();
+  }
+
+  async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file || !pendingPhotoItemId) return;
+
+    const item = items.find((i) => i.id === pendingPhotoItemId);
+    if (!item) return;
+
+    setUploadingPhoto(pendingPhotoItemId);
+    e.target.value = "";
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error);
+
+      const photoUrl: string = json.url;
+      setLocalPhotos((prev) => ({ ...prev, [item.id]: photoUrl }));
+
+      await fetch(`/api/employe/missions/${id}/checklist`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          itemLabel: item.label,
+          category: item.category,
+          isCompleted: localOverrides[item.id] ?? item.isCompleted,
+          photoUrl,
+        }),
+      });
+      await mutate();
+    } catch (err) {
+      console.error("Upload échoué", err);
+    } finally {
+      setUploadingPhoto(null);
+      setPendingPhotoItemId(null);
+    }
+  }
+
   // Items avec overrides locaux appliqués
   const items = useMemo(() => {
     return (data?.checklist?.items ?? []).map((item) => ({
       ...item,
       isCompleted: localOverrides[item.id] ?? item.isCompleted,
+      photoUrl: localPhotos[item.id] ?? item.photoUrl,
     }));
-  }, [data, localOverrides]);
+  }, [data, localOverrides, localPhotos]);
 
   // Recalcul du progress avec overrides
   const progress = useMemo(() => {
-    if (!data) return data?.progress;
+    if (!data) return undefined;
     const total = items.length;
     const completed = items.filter((i) => i.isCompleted).length;
     const requiredTotal = items.filter((i) => i.isRequired).length;
@@ -211,6 +264,16 @@ export default function ChecklistPage() {
         )}
       </div>
 
+      {/* Input file caché pour l'appareil photo */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        className="hidden"
+        onChange={handleFileChange}
+      />
+
       {/* Contenu */}
       <div className="px-4 py-4 space-y-5">
         {!data.hasChecklist ? (
@@ -238,47 +301,86 @@ export default function ChecklistPage() {
                 {categoryItems.map((item) => {
                   const isChecked = item.isCompleted;
                   const isLoading = toggling === item.id;
+                  const isUploading = uploadingPhoto === item.id;
+                  const missionDone = data.status === "COMPLETED";
 
                   return (
-                    <button
-                      key={item.id}
-                      onClick={() => toggleItem(item)}
-                      disabled={isLoading || data.status === "COMPLETED"}
-                      className={clsx(
-                        "w-full flex items-center gap-4 bg-white rounded-2xl px-4 shadow-sm transition-all text-left",
-                        isChecked ? "opacity-75" : "",
-                        data.status !== "COMPLETED" && "active:scale-[0.98]"
-                      )}
-                      style={{ minHeight: 64 }}
-                    >
-                      {/* Checkbox */}
-                      <div className="shrink-0">
-                        {isLoading ? (
-                          <div className="w-7 h-7 rounded-full border-2 border-gray-300 border-t-purple-500 animate-spin" />
-                        ) : isChecked ? (
-                          <CheckCircle2 size={28} className="text-green-500" />
-                        ) : (
-                          <Circle size={28} className="text-gray-300" />
+                    <div key={item.id} className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                      <div
+                        className={clsx(
+                          "w-full flex items-center gap-4 px-4 transition-all",
+                          isChecked ? "opacity-75" : "",
+                        )}
+                        style={{ minHeight: 64 }}
+                      >
+                        {/* Checkbox */}
+                        <button
+                          onClick={() => toggleItem(item)}
+                          disabled={isLoading || missionDone}
+                          className="shrink-0 flex items-center justify-center"
+                        >
+                          {isLoading ? (
+                            <div className="w-7 h-7 rounded-full border-2 border-gray-300 border-t-purple-500 animate-spin" />
+                          ) : isChecked ? (
+                            <CheckCircle2 size={28} className="text-green-500" />
+                          ) : (
+                            <Circle size={28} className="text-gray-300" />
+                          )}
+                        </button>
+
+                        {/* Label */}
+                        <div
+                          className="flex-1 min-w-0 py-4 cursor-pointer"
+                          onClick={() => !missionDone && !isLoading && toggleItem(item)}
+                        >
+                          <p
+                            className={clsx(
+                              "text-base font-medium leading-snug",
+                              isChecked ? "text-gray-400 line-through" : "text-gray-900"
+                            )}
+                          >
+                            {item.label}
+                          </p>
+                          {item.isRequired && !isChecked && (
+                            <p className="text-xs text-red-400 mt-0.5">Obligatoire</p>
+                          )}
+                          {item.photoRequired && !item.photoUrl && !missionDone && (
+                            <p className="text-xs text-orange-400 mt-0.5">Photo requise</p>
+                          )}
+                        </div>
+
+                        {/* Bouton photo */}
+                        {item.photoRequired && !missionDone && (
+                          <button
+                            onClick={() => openPhotoPicker(item)}
+                            disabled={isUploading}
+                            className={clsx(
+                              "shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-colors",
+                              item.photoUrl
+                                ? "bg-green-100 text-green-600"
+                                : "bg-gray-100 text-gray-500"
+                            )}
+                          >
+                            {isUploading ? (
+                              <Loader2 size={20} className="animate-spin" />
+                            ) : (
+                              <Camera size={20} />
+                            )}
+                          </button>
                         )}
                       </div>
 
-                      {/* Label */}
-                      <div className="flex-1 min-w-0 py-4">
-                        <p
-                          className={clsx(
-                            "text-base font-medium leading-snug",
-                            isChecked
-                              ? "text-gray-400 line-through"
-                              : "text-gray-900"
-                          )}
-                        >
-                          {item.label}
-                        </p>
-                        {item.isRequired && !isChecked && (
-                          <p className="text-xs text-red-400 mt-0.5">Obligatoire</p>
-                        )}
-                      </div>
-                    </button>
+                      {/* Miniature photo */}
+                      {item.photoUrl && (
+                        <div className="px-4 pb-4">
+                          <img
+                            src={item.photoUrl}
+                            alt="Photo de la tâche"
+                            className="w-full max-h-48 object-cover rounded-xl"
+                          />
+                        </div>
+                      )}
+                    </div>
                   );
                 })}
               </div>

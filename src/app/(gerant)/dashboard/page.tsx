@@ -55,7 +55,7 @@ export default function DashboardPage() {
     month: "long",
   });
 
-  if (isLoading || !data) {
+  if (isLoading || !data || !data.todayMissions) {
     return (
       <div className="page">
         {/* Skeleton header */}

@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
   const { phone } = result.data;
 
-  const user = await prisma.user.findUnique({ where: { phone } });
+  const user = await prisma.user.findFirst({ where: { phone } });
   if (!user || !user.isActive) {
     return NextResponse.json({ error: "Numéro non reconnu" }, { status: 404 });
   }

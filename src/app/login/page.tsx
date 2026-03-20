@@ -12,11 +12,17 @@ export default function LoginPage() {
   const [error, setError] = useState("");
 
   async function devLoginGerant() {
-    await fetch("/api/dev-login", {
+    const res = await fetch("/api/dev-login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ role: "GERANT" }),
     });
+    const json = await res.json();
+    console.log("dev-login response:", res.status, json);
+    if (!res.ok) {
+      setError(`Erreur login: ${json.error}`);
+      return;
+    }
     router.push("/dashboard");
   }
 

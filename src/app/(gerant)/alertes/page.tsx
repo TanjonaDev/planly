@@ -37,7 +37,7 @@ export default function AlertesPage() {
           [1, 2].map((i) => (
             <div key={i} className="h-24 bg-white rounded-2xl shadow-sm animate-pulse" />
           ))
-        ) : !data || data.length === 0 ? (
+        ) : !Array.isArray(data) || data.length === 0 ? (
           /* Empty state comme Figma */
           <div className="flex flex-col items-center justify-center py-20">
             <div className="w-20 h-20 rounded-full bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center mb-4 shadow-md">
