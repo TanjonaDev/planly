@@ -19,14 +19,14 @@ type Site = {
 
 const fetcher = (url: string) => fetch(url).then((r) => r.json());
 
-// Couleurs des bordures de sites (comme Figma)
+// Couleurs des bordures de sites
 const siteColors = [
-  "bg-blue-500",
-  "bg-purple-500",
-  "bg-pink-500",
-  "bg-orange-500",
-  "bg-teal-500",
-  "bg-indigo-500",
+  "border-blue-500",
+  "border-purple-500",
+  "border-pink-500",
+  "border-orange-500",
+  "border-teal-500",
+  "border-indigo-500",
 ];
 
 export default function SitesPage() {
@@ -34,100 +34,95 @@ export default function SitesPage() {
   const router = useRouter();
 
   return (
-    <div className="page">
-      {/* White header */}
-      <div className="px-6 pt-8 pb-4 bg-white">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">Sites</h1>
-            {Array.isArray(data) && (
-              <p className="text-sm text-gray-500">{data.filter((s) => s.isActive).length} site{data.filter((s) => s.isActive).length > 1 ? "s" : ""} actif{data.filter((s) => s.isActive).length > 1 ? "s" : ""}</p>
-            )}
-          </div>
-        </div>
+    <div className="pt-24 px-6 max-w-2xl mx-auto space-y-4 pb-32">
+      {/* Titre */}
+      <div className="pt-2">
+        <h2 className="font-headline font-bold text-xl text-[#2c2f30]">Sites</h2>
+        {Array.isArray(data) && (
+          <p className="text-sm text-[#595c5d]">{data.filter((s) => s.isActive).length} site{data.filter((s) => s.isActive).length > 1 ? "s" : ""} actif{data.filter((s) => s.isActive).length > 1 ? "s" : ""}</p>
+        )}
       </div>
 
-      <div className="px-6 pt-4 space-y-3">
-        {/* Bouton ajouter pleine largeur */}
-        <Link
-          href="/sites/nouveau"
-          className="w-full bg-gray-900 text-white font-semibold py-3.5 rounded-2xl shadow-md flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors"
-        >
-          <Plus size={20} />
-          Ajouter un site
-        </Link>
+      {/* Bouton ajouter pleine largeur */}
+      <Link
+        href="/sites/nouveau"
+        className="w-full bg-gray-900 text-white font-semibold py-3.5 rounded-[2rem] shadow-md flex items-center justify-center gap-2 hover:bg-gray-800 transition-colors"
+        style={{ minHeight: "56px" }}
+      >
+        <Plus size={20} />
+        Ajouter un site
+      </Link>
 
-        {isLoading ? (
-          [1, 2, 3].map((i) => (
-            <div key={i} className="h-24 bg-white rounded-2xl shadow-sm animate-pulse" />
-          ))
-        ) : !Array.isArray(data) || data.length === 0 ? (
-          <div className="bg-white rounded-2xl p-10 shadow-sm text-center">
-            <p className="text-gray-500">Aucun site</p>
-            <p className="text-sm text-gray-400 mt-1">Appuyez sur "Ajouter" pour commencer</p>
-          </div>
-        ) : (
-          data.map((site, idx) => {
+      {isLoading ? (
+        <div className="space-y-3">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-24 bg-white rounded-[2rem] shadow-[0_8px_24px_rgba(12,15,16,0.03)] animate-pulse" />
+          ))}
+        </div>
+      ) : !Array.isArray(data) || data.length === 0 ? (
+        <div className="bg-white rounded-[2rem] p-10 shadow-[0_8px_24px_rgba(12,15,16,0.03)] text-center">
+          <p className="text-[#595c5d]">Aucun site</p>
+          <p className="text-sm text-gray-400 mt-1">Appuyez sur "Ajouter" pour commencer</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {data.map((site, idx) => {
             const borderColor = siteColors[idx % siteColors.length];
             return (
               <div
                 key={site.id}
                 onClick={() => router.push(`/sites/${site.id}`)}
                 className={clsx(
-                  "relative bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden cursor-pointer",
+                  "bg-white rounded-[2rem] shadow-[0_8px_24px_rgba(12,15,16,0.03)] p-4 border-l-4 hover:scale-[1.01] transition-all cursor-pointer",
+                  borderColor,
                   !site.isActive && "opacity-60"
                 )}
               >
-                {/* Colored left border */}
-                <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${borderColor}`} />
-
-                <div className="pl-5 pr-4 py-4">
-                  <div className="flex items-start justify-between gap-2">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="font-bold text-gray-900 truncate">{site.name}</h3>
-                        {!site.isActive && (
-                          <span className="text-xs text-gray-400 shrink-0">inactif</span>
-                        )}
-                      </div>
-
-                      <div className="flex items-start gap-1.5 mb-3">
-                        <MapPin className="w-4 h-4 text-gray-400 mt-0.5 shrink-0" />
-                        <p className="text-sm text-gray-500">{site.address}</p>
-                      </div>
-
-                      <div className="flex items-center gap-4">
-                        {site.hasChecklist && (
-                          <div className="flex items-center gap-1.5">
-                            <CheckSquare className="w-4 h-4 text-gray-400" />
-                            <span className="text-sm text-gray-600 font-medium">Checklist</span>
-                          </div>
-                        )}
-                        {site.contactPhone && (
-                          <a
-                            href={`tel:${site.contactPhone}`}
-                            className="flex items-center gap-1.5"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <Phone className="w-4 h-4 text-gray-400" />
-                            <span className="text-sm text-gray-600">
-                              {site.contactName ?? site.contactPhone}
-                            </span>
-                          </a>
-                        )}
-                      </div>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-2">
+                      <h3 className="font-headline font-bold text-[#2c2f30] truncate">{site.name}</h3>
+                      {!site.isActive && (
+                        <span className="text-xs text-gray-400 shrink-0">inactif</span>
+                      )}
                     </div>
 
-                    <button className="p-1 hover:bg-gray-100 rounded-full transition-colors shrink-0">
-                      <ChevronRight className="w-5 h-5 text-gray-400" />
-                    </button>
+                    <div className="flex items-start gap-1.5 mb-3">
+                      <MapPin className="w-4 h-4 text-[#595c5d] mt-0.5 shrink-0" />
+                      <p className="text-sm text-[#595c5d]">{site.address}</p>
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                      {site.hasChecklist && (
+                        <div className="flex items-center gap-1.5">
+                          <CheckSquare className="w-4 h-4 text-[#595c5d]" />
+                          <span className="text-sm text-[#2c2f30] font-medium">Checklist</span>
+                        </div>
+                      )}
+                      {site.contactPhone && (
+                        <a
+                          href={`tel:${site.contactPhone}`}
+                          className="flex items-center gap-1.5"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <Phone className="w-4 h-4 text-[#595c5d]" />
+                          <span className="text-sm text-[#2c2f30]">
+                            {site.contactName ?? site.contactPhone}
+                          </span>
+                        </a>
+                      )}
+                    </div>
                   </div>
+
+                  <button className="p-1 hover:bg-gray-100 rounded-full transition-colors shrink-0">
+                    <ChevronRight className="w-5 h-5 text-gray-400" />
+                  </button>
                 </div>
               </div>
             );
-          })
-        )}
-      </div>
+          })}
+        </div>
+      )}
     </div>
   );
 }

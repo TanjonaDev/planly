@@ -163,13 +163,13 @@ function NouvelleMissionForm() {
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Instructions particulières..."
             rows={3}
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-body placeholder:text-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 focus:outline-none resize-none"
+            className="w-full rounded-[2rem] border border-gray-200 bg-white px-4 py-3.5 text-body placeholder:text-gray-400 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 focus:outline-none resize-none"
           />
         </div>
 
         {/* Erreur */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+          <div className="bg-red-50 border border-red-200 rounded-[2rem] px-4 py-3">
             <p className="text-sm text-red-700 font-medium">{error}</p>
           </div>
         )}
@@ -178,7 +178,7 @@ function NouvelleMissionForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gray-900 text-white font-bold py-4 rounded-2xl shadow-md text-base disabled:opacity-60 transition-opacity"
+          className="w-full bg-gray-900 text-white font-bold py-4 rounded-[1.5rem] shadow-md text-base disabled:opacity-60 transition-opacity"
           style={{ minHeight: 56 }}
         >
           {loading ? "Enregistrement..." : "Créer la mission"}

@@ -86,7 +86,7 @@ export default function EmployeDetailPage({
       <div>
         <div className="page-header flex items-center gap-3">
           <div className="w-8 h-8 bg-gray-200 rounded-full animate-pulse" />
-          <div className="h-7 w-40 bg-gray-200 rounded-lg animate-pulse" />
+          <div className="h-7 w-40 bg-gray-200 rounded-[2rem] animate-pulse" />
         </div>
         <div className="px-4 py-4 space-y-3">
           {[1, 2, 3].map((i) => (

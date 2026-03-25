@@ -94,10 +94,10 @@ export default function AbsencePage() {
 
           {isLoading ? (
             [1, 2].map((i) => (
-              <div key={i} className="h-16 bg-white rounded-2xl shadow-sm animate-pulse mb-2" />
+              <div key={i} className="h-16 bg-white rounded-[1.5rem] shadow-sm animate-pulse mb-2" />
             ))
           ) : eligible.length === 0 ? (
-            <div className="bg-white rounded-2xl shadow-sm p-8 text-center">
+            <div className="bg-white rounded-[1.5rem] shadow-sm p-8 text-center">
               <p className="text-sm text-gray-400">Aucune mission à venir</p>
             </div>
           ) : (
@@ -110,7 +110,7 @@ export default function AbsencePage() {
                     type="button"
                     onClick={() => toggle(mission.id)}
                     className={clsx(
-                      "w-full bg-white rounded-2xl shadow-sm text-left flex items-center gap-3 px-4 py-3.5 transition-all",
+                      "w-full bg-white rounded-[1.5rem] shadow-sm text-left flex items-center gap-3 px-4 py-3.5 transition-all",
                       isSelected && "ring-2 ring-gray-900"
                     )}
                   >
@@ -143,7 +143,7 @@ export default function AbsencePage() {
           <textarea
             id="reason"
             rows={3}
-            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3.5 text-base placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-200 focus:outline-none resize-none"
+            className="w-full rounded-[2rem] border border-gray-200 bg-white px-4 py-3.5 text-base placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-200 focus:outline-none resize-none"
             placeholder="Maladie, urgence personnelle..."
             value={reason}
             onChange={(e) => setReason(e.target.value)}
@@ -151,7 +151,7 @@ export default function AbsencePage() {
         </div>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 flex items-center gap-2">
+          <div className="bg-red-50 border border-red-200 rounded-[2rem] px-4 py-3 flex items-center gap-2">
             <AlertTriangle size={16} className="text-red-500 shrink-0" />
             <span className="text-sm text-red-700 font-medium">{error}</span>
           </div>
@@ -160,7 +160,7 @@ export default function AbsencePage() {
         <button
           type="submit"
           disabled={loading || selectedIds.size === 0}
-          className="w-full bg-gray-900 text-white font-bold py-4 rounded-2xl shadow-md flex items-center justify-center gap-2 disabled:opacity-50 transition-opacity"
+          className="w-full bg-gray-900 text-white font-bold py-4 rounded-[1.5rem] shadow-md flex items-center justify-center gap-2 disabled:opacity-50 transition-opacity"
           style={{ minHeight: 56 }}
         >
           <Send size={18} />

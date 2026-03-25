@@ -131,12 +131,12 @@ export default function MesMissionsPage() {
         {pendingReplacements.map((req) => (
           <div
             key={req.absenceId}
-            className="bg-white rounded-2xl shadow-sm overflow-hidden"
+            className="bg-white rounded-[1.5rem] shadow-sm overflow-hidden"
           >
             <div className="h-1 bg-orange-400" />
             <div className="p-4 space-y-3">
               <div className="flex items-start gap-2">
-                <div className="w-9 h-9 rounded-xl bg-orange-100 flex items-center justify-center shrink-0">
+                <div className="w-9 h-9 rounded-[2rem] bg-orange-100 flex items-center justify-center shrink-0">
                   <UserCheck size={18} className="text-orange-600" />
                 </div>
                 <div className="flex-1 min-w-0">
@@ -146,7 +146,7 @@ export default function MesMissionsPage() {
                   </p>
                 </div>
               </div>
-              <div className="bg-gray-50 rounded-xl p-3 space-y-1.5">
+              <div className="bg-gray-50 rounded-[2rem] p-3 space-y-1.5">
                 <p className="font-semibold text-gray-900">{req.site}</p>
                 <div className="flex items-center gap-1.5">
                   <Clock size={14} className="text-gray-400 shrink-0" />
@@ -163,7 +163,7 @@ export default function MesMissionsPage() {
                 <button
                   onClick={() => respondReplacement(req.absenceId, true)}
                   disabled={respondingId === req.absenceId}
-                  className="flex-1 bg-gray-900 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity"
+                  className="flex-1 bg-gray-900 text-white font-bold py-3.5 rounded-[2rem] flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity"
                 >
                   <CheckCircle2 size={16} />
                   {respondingId === req.absenceId ? "..." : "Accepter"}
@@ -171,7 +171,7 @@ export default function MesMissionsPage() {
                 <button
                   onClick={() => respondReplacement(req.absenceId, false)}
                   disabled={respondingId === req.absenceId}
-                  className="flex-1 bg-gray-100 text-gray-700 font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity"
+                  className="flex-1 bg-gray-100 text-gray-700 font-bold py-3.5 rounded-[2rem] flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity"
                 >
                   <X size={16} />
                   Refuser
@@ -184,10 +184,10 @@ export default function MesMissionsPage() {
         {/* Missions du jour */}
         {isLoading ? (
           [1, 2].map((i) => (
-            <div key={i} className="h-24 bg-white rounded-2xl shadow-sm animate-pulse" />
+            <div key={i} className="h-24 bg-white rounded-[1.5rem] shadow-sm animate-pulse" />
           ))
         ) : !Array.isArray(data) || data.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-sm p-10 text-center">
+          <div className="bg-white rounded-[1.5rem] shadow-sm p-10 text-center">
             <div className="w-16 h-16 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
               <CheckCircle2 size={28} className="text-green-500" />
             </div>
@@ -203,7 +203,7 @@ export default function MesMissionsPage() {
             return (
               <div
                 key={mission.id}
-                className="relative bg-white rounded-2xl shadow-sm overflow-hidden"
+                className="relative bg-white rounded-[1.5rem] shadow-sm overflow-hidden"
               >
                 <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${missionColor}`} />
                 <div className="pl-5 pr-4 py-4 space-y-3">
@@ -232,7 +232,7 @@ export default function MesMissionsPage() {
                     <button
                       onClick={() => updateMission(mission.id, "start")}
                       disabled={loadingId === mission.id}
-                      className="w-full bg-gray-900 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity"
+                      className="w-full bg-gray-900 text-white font-bold py-3.5 rounded-[2rem] flex items-center justify-center gap-2 disabled:opacity-60 transition-opacity"
                     >
                       <Play size={16} />
                       {loadingId === mission.id ? "Démarrage..." : "Commencer la mission"}
@@ -242,7 +242,7 @@ export default function MesMissionsPage() {
                   {mission.status === "IN_PROGRESS" && (
                     <Link
                       href={`/missions/${mission.id}`}
-                      className="w-full bg-gray-900 text-white font-bold py-3.5 rounded-xl flex items-center justify-center gap-2"
+                      className="w-full bg-gray-900 text-white font-bold py-3.5 rounded-[2rem] flex items-center justify-center gap-2"
                     >
                       <ClipboardList size={16} />
                       Faire la checklist

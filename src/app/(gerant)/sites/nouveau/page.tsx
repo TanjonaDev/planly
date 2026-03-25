@@ -117,13 +117,13 @@ export default function NouveauSitePage() {
 
         {/* Erreur */}
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+          <div className="bg-red-50 border border-red-200 rounded-[2rem] px-4 py-3">
             <p className="text-sm text-red-700 font-medium">{error}</p>
           </div>
         )}
 
         {/* Info checklist */}
-        <div className="bg-gray-50 rounded-xl px-4 py-3">
+        <div className="bg-gray-50 rounded-[2rem] px-4 py-3">
           <p className="text-sm text-gray-500">
             💡 La checklist du site peut être configurée depuis la fiche du site après création.
           </p>
@@ -133,7 +133,7 @@ export default function NouveauSitePage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gray-900 text-white font-bold py-4 rounded-2xl shadow-md text-base disabled:opacity-60 transition-opacity"
+          className="w-full bg-gray-900 text-white font-bold py-4 rounded-[1.5rem] shadow-md text-base disabled:opacity-60 transition-opacity"
           style={{ minHeight: 56 }}
         >
           {loading ? "Enregistrement..." : "Créer le site"}

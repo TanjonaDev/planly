@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cleaning Dashboard - Azure Clarity</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#f5f6f7",
+              "error": "#b41340",
+              "on-tertiary": "#ffeef5",
+              "surface-container-highest": "#dadddf",
+              "secondary-dim": "#4d3fa8",
+              "outline": "#757778",
+              "surface-container-low": "#eff1f2",
+              "primary-fixed": "#8d98ff",
+              "surface-container": "#e6e8ea",
+              "on-background": "#2c2f30",
+              "inverse-on-surface": "#9b9d9e",
+              "error-dim": "#a70138",
+              "tertiary-container": "#ff91db",
+              "primary-container": "#8d98ff",
+              "surface-container-high": "#e0e3e4",
+              "on-secondary-fixed-variant": "#4e40a9",
+              "background": "#f5f6f7",
+              "surface-bright": "#f5f6f7",
+              "surface-variant": "#dadddf",
+              "on-surface-variant": "#595c5d",
+              "outline-variant": "#abadae",
+              "tertiary-fixed": "#ff91db",
+              "on-primary-fixed-variant": "#000f95",
+              "secondary-fixed-dim": "#c4bcff",
+              "secondary": "#594cb5",
+              "on-secondary-fixed": "#311e8b",
+              "error-container": "#f74b6d",
+              "tertiary": "#94387b",
+              "secondary-container": "#d3ccff",
+              "on-primary-fixed": "#000000",
+              "on-surface": "#2c2f30",
+              "inverse-primary": "#7985ff",
+              "on-tertiary-container": "#640951",
+              "primary": "#2438fa",
+              "secondary-fixed": "#d3ccff",
+              "on-secondary": "#f5f0ff",
+              "on-tertiary-fixed": "#3f0032",
+              "on-error": "#ffefef",
+              "inverse-surface": "#0c0f10",
+              "surface-container-lowest": "#ffffff",
+              "on-error-container": "#510017",
+              "on-primary": "#efeeff",
+              "on-tertiary-fixed-variant": "#6f165b",
+              "primary-fixed-dim": "#7c88ff",
+              "surface-tint": "#2438fa",
+              "on-secondary-container": "#45369f",
+              "tertiary-dim": "#862b6e",
+              "on-primary-container": "#000a7b",
+              "primary-dim": "#0a24ef",
+              "tertiary-fixed-dim": "#ef84cd",
+              "surface-dim": "#d1d5d7"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f6f7;
+        }
+        .font-headline {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-on-surface antialiased pb-32">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#f5f6f7]/80 backdrop-blur-xl shadow-[0_12px_32px_rgba(12,15,16,0.06)] px-6 py-4 flex justify-between items-center max-w-full mx-auto">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container overflow-hidden flex items-center justify-center border-2 border-white">
+<img alt="Profile" class="w-full h-full object-cover" data-alt="Close-up portrait of a professional man in a clean environment with soft natural lighting and a friendly expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD9IxbGF6OkqEoIoGjT7vxH26RWNqAGOKnFSjjWHGrgwM49tmeGVwHVhogS2TU9BIxf-DAv4407UFXNGsh35EQqkBAi_TIwgcrO2lSsiTsQ8K0B7MBetx04MdKI3sTLenOgEfort_eBGEA2501LZKxw6D-tTezO849XJIvj3TEQq1dnYuD9hq2yqQ7AKRwy5z4XehPk5Dm7JZJSVaO3QfWhc1j_oGOkvyMb3N6n1wjJ1WVFYg1LEhb3qnfxbv3wODsh3etQoFwDUuc"/>
+</div>
+<div>
+<p class="text-on-surface-variant text-xs font-label tracking-wider uppercase">Welcome back</p>
+<h1 class="font-headline font-bold text-lg tracking-tight text-[#1B30F5]">Bonjour Mohamed</h1>
+</div>
+</div>
+<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100/50 transition-all active:scale-95 duration-200">
+<span class="material-symbols-outlined text-slate-500">notifications</span>
+</button>
+</header>
+<main class="mt-24 px-6 max-w-2xl mx-auto space-y-8">
+<!-- Horizontal Date Selector -->
+<section class="overflow-x-auto no-scrollbar py-2">
+<div class="flex gap-3">
+<div class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-lg bg-surface-container-lowest text-on-surface-variant">
+<span class="text-[10px] font-label font-medium uppercase tracking-widest">DIM</span>
+<span class="text-lg font-headline font-bold">22</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-lg bg-[#1B30F5] text-white shadow-lg shadow-blue-200">
+<span class="text-[10px] font-label font-medium uppercase tracking-widest">LUN</span>
+<span class="text-lg font-headline font-bold">23</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-lg bg-surface-container-lowest text-on-surface-variant">
+<span class="text-[10px] font-label font-medium uppercase tracking-widest">MAR</span>
+<span class="text-lg font-headline font-bold">24</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-lg bg-surface-container-lowest text-on-surface-variant">
+<span class="text-[10px] font-label font-medium uppercase tracking-widest">MER</span>
+<span class="text-lg font-headline font-bold">25</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[64px] h-20 rounded-lg bg-surface-container-lowest text-on-surface-variant">
+<span class="text-[10px] font-label font-medium uppercase tracking-widest">JEU</span>
+<span class="text-lg font-headline font-bold">26</span>
+</div>
+</div>
+</section>
+<!-- Summary Stats Bento-ish Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Missions Card -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_12px_32px_rgba(12,15,16,0.04)] flex items-center gap-4 border-l-4 border-[#1B30F5]">
+<div class="w-12 h-12 rounded-full bg-primary-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-[#1B30F5]">assignment</span>
+</div>
+<div>
+<p class="text-2xl font-headline font-extrabold text-on-surface leading-none">22</p>
+<p class="text-xs font-medium text-on-surface-variant mt-1">Missions ce mois</p>
+</div>
+</div>
+<!-- Alerts Card -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_12px_32px_rgba(12,15,16,0.04)] flex items-center gap-4 border-l-4 border-error-container">
+<div class="w-12 h-12 rounded-full bg-error-container/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-error">notification_important</span>
+</div>
+<div>
+<p class="text-2xl font-headline font-extrabold text-on-surface leading-none">3</p>
+<p class="text-xs font-medium text-on-surface-variant mt-1">Alertes actives</p>
+</div>
+</div>
+<!-- Bonuses Card -->
+<div class="bg-surface-container-lowest p-5 rounded-xl shadow-[0_12px_32px_rgba(12,15,16,0.04)] flex items-center gap-4 border-l-4 border-secondary">
+<div class="w-12 h-12 rounded-full bg-secondary-container/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">insert_chart</span>
+</div>
+<div>
+<p class="text-2xl font-headline font-extrabold text-on-surface leading-none">2</p>
+<p class="text-xs font-medium text-on-surface-variant mt-1">Bonus ce mois-ci</p>
+</div>
+</div>
+</section>
+<!-- Ongoing Missions Section -->
+<section class="space-y-4">
+<div class="flex justify-between items-end">
+<h2 class="font-headline font-bold text-xl text-on-surface">Missions en cours</h2>
+<a class="text-[#1B30F5] font-bold text-sm hover:underline" href="#">Voir tout</a>
+</div>
+<div class="space-y-3">
+<!-- Mission Card 1 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0_8px_24px_rgba(12,15,16,0.03)] flex items-center justify-between group cursor-pointer transition-all hover:scale-[1.01]">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-blue-100 flex items-center justify-center text-[#1B30F5] font-headline font-black text-lg">OC</div>
+<div class="space-y-1">
+<h3 class="font-headline font-bold text-on-surface tracking-tight">Optical Center</h3>
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs font-medium">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                42 Avenue des Champs-Élysées
+                            </div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="px-3 py-1 rounded-full bg-primary-container/20 text-[#1B30F5] text-[10px] font-bold uppercase tracking-wider">En cours</span>
+<span class="text-[10px] text-on-surface-variant font-label">MAINTENANT</span>
+</div>
+</div>
+<!-- Mission Card 2 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0_8px_24px_rgba(12,15,16,0.03)] flex items-center justify-between group cursor-pointer transition-all hover:scale-[1.01]">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center text-tertiary-dim font-headline font-black text-lg">BI</div>
+<div class="space-y-1">
+<h3 class="font-headline font-bold text-on-surface tracking-tight">Bâtir Innover</h3>
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs font-medium">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                12 Rue de la Paix
+                            </div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="px-3 py-1 rounded-full bg-tertiary-container/20 text-tertiary-dim text-[10px] font-bold uppercase tracking-wider">Complété</span>
+<span class="text-[10px] text-on-surface-variant font-label">09:30 - 11:45</span>
+</div>
+</div>
+<!-- Mission Card 3 -->
+<div class="bg-surface-container-lowest p-4 rounded-xl shadow-[0_8px_24px_rgba(12,15,16,0.03)] flex items-center justify-between group cursor-pointer transition-all hover:scale-[1.01]">
+<div class="flex items-center gap-4">
+<div class="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 font-headline font-black text-lg">HS</div>
+<div class="space-y-1">
+<h3 class="font-headline font-bold text-on-surface tracking-tight">Health Studio</h3>
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs font-medium">
+<span class="material-symbols-outlined text-sm">location_on</span>
+                                8 Boulevard Haussmann
+                            </div>
+</div>
+</div>
+<div class="flex flex-col items-end gap-2">
+<span class="px-3 py-1 rounded-full bg-surface-container-highest text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">À venir</span>
+<span class="text-[10px] text-on-surface-variant font-label">DEMAIN 08:00</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Gauges / Secondary Bento Section -->
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_32px_rgba(12,15,16,0.04)] text-center space-y-3">
+<p class="text-xs font-label text-on-surface-variant tracking-widest uppercase">Efficacité</p>
+<div class="relative w-24 h-24 mx-auto flex items-center justify-center">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-surface-container-highest" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-[#1B30F5]" cx="48" cy="48" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="60" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<span class="absolute text-xl font-headline font-extrabold">76%</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-6 rounded-xl shadow-[0_12px_32px_rgba(12,15,16,0.04)] flex flex-col justify-between">
+<div>
+<p class="text-xs font-label text-on-surface-variant tracking-widest uppercase">Satisfaction</p>
+<p class="text-3xl font-headline font-extrabold text-[#1B30F5] mt-1">4.9</p>
+</div>
+<div class="flex gap-0.5 text-[#1B30F5]">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 pb-8 flex justify-center pointer-events-none">
+<div class="bg-[#0c0f10]/90 backdrop-blur-md shadow-[0_12px_32px_rgba(0,0,0,0.2)] w-[90%] max-w-md rounded-full px-6 py-3 flex justify-between items-center pointer-events-auto">
+<!-- Active State: Missions -->
+<a class="flex flex-col items-center justify-center text-white bg-[#1B30F5] rounded-full p-2 scale-110 active:scale-90 duration-150 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">assignment</span>
+<span class="font-label text-[8px] uppercase tracking-wider mt-0.5">Missions</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-white transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">calendar_today</span>
+<span class="font-label text-[8px] uppercase tracking-wider mt-0.5">Schedule</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-white transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">insert_chart</span>
+<span class="font-label text-[8px] uppercase tracking-wider mt-0.5">Stats</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-400 p-2 hover:text-white transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label text-[8px] uppercase tracking-wider mt-0.5">Profile</span>
+</a>
+</div>
+</nav>
+<!-- FAB -->
+<button class="fixed right-6 bottom-28 w-14 h-14 bg-[#1B30F5] text-white rounded-full shadow-lg flex items-center justify-center active:scale-90 transition-transform duration-200 z-40">
+<span class="material-symbols-outlined text-3xl">add</span>
+</button>
+</body></html>

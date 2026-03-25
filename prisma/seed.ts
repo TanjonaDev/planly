@@ -23,7 +23,7 @@ async function main() {
   const gerant = await prisma.user.create({
     data: {
       phone: "+33760388422",
-      email: process.env.GERANT_EMAIL ?? "ton-email@gmail.com", // ← remplace par ton vrai email Google
+      email: "tanjona.rakotoarisoa@gmail.com",
       firstName: "Mohamed",
       lastName: "B.",
       role: UserRole.GERANT,
@@ -41,7 +41,7 @@ async function main() {
   // Chaque employé a son propre numéro — requis pour le VerificationToken (webhook SMS)
   // Ahmed garde le vrai numéro Twilio pour tester la vue employé + réception SMS
   const employeesData = [
-    { firstName: "Ahmed", lastName: "M.", phone: "+33760388422", zones: ["Thiais", "Choisy"], skills: ["sols", "vitres", "sanitaires"] },
+    { firstName: "Ahmed", lastName: "M.", phone: "+33760388422", email: "tanjonarako@gmail.com", zones: ["Thiais", "Choisy"], skills: ["sols", "vitres", "sanitaires"] },
     { firstName: "Fatima", lastName: "K.", phone: "+33700000002", zones: ["Thiais", "Vitry"], skills: ["sols", "poussière", "sanitaires"] },
     { firstName: "Rachid", lastName: "A.", phone: "+33700000003", zones: ["Créteil", "Thiais"], skills: ["sols", "vitres", "désinfection"] },
     { firstName: "Khadija", lastName: "L.", phone: "+33700000004", zones: ["Créteil", "Choisy"], skills: ["sols", "poussière", "bureaux"] },
@@ -54,6 +54,7 @@ async function main() {
     const user = await prisma.user.create({
       data: {
         phone: data.phone,
+        email: "email" in data ? data.email : undefined,
         firstName: data.firstName,
         lastName: data.lastName,
         role: UserRole.EMPLOYE,
@@ -136,35 +137,50 @@ async function main() {
     sites.push(site);
   }
 
-  // ========== MISSIONS CETTE SEMAINE ==========
+  // ========== MISSIONS : semaine courante + semaine suivante (jusqu'au 3 avril) ==========
   const now = new Date();
-  // Trouver le lundi de la semaine courante (0=dim → offset -6, sinon 1-lundi)
   const dayOfWeek = now.getDay();
   const daysToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
   const monday = new Date(now.getFullYear(), now.getMonth(), now.getDate() + daysToMonday);
 
   const todayStr = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+  const endDate = new Date(2026, 3, 3); // 3 avril 2026
 
-  for (let dayOffset = 0; dayOffset < 5; dayOffset++) {
-    const date = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + dayOffset, 12, 0, 0);
-    const dateStr = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
+  let missionCount = 0;
+  let dayOffset = 0;
+  while (true) {
+    const date = new Date(monday.getFullYear(), monday.getMonth(), monday.getDate() + dayOffset, 8, 0, 0);
+    if (date > endDate) break;
 
-    const isPast = dateStr < todayStr;
-    const isToday = dateStr === todayStr;
+    const dow = date.getDay();
+    if (dow !== 0 && dow !== 6) { // lundi–vendredi uniquement
+      const dateStr = new Date(date.getFullYear(), date.getMonth(), date.getDate()).toISOString();
+      const isPast = dateStr < todayStr;
 
-    // 4 missions par jour (1 par site)
-    for (let siteIdx = 0; siteIdx < sites.length; siteIdx++) {
-      await prisma.mission.create({
-        data: {
-          siteId: sites[siteIdx].id,
-          employeeId: employees[siteIdx % employees.length].id,
-          date,
-          startTime: "06:00",
-          endTime: "09:00",
-          status: isPast ? MissionStatus.COMPLETED : MissionStatus.PLANNED,
-        },
-      });
+      // Alterner les horaires pour varier
+      const slots = [
+        { startTime: "06:00", endTime: "09:00" },
+        { startTime: "09:30", endTime: "11:30" },
+        { startTime: "12:00", endTime: "15:00" },
+        { startTime: "15:30", endTime: "18:00" },
+      ];
+
+      for (let siteIdx = 0; siteIdx < sites.length; siteIdx++) {
+        const slot = slots[siteIdx % slots.length];
+        await prisma.mission.create({
+          data: {
+            siteId: sites[siteIdx].id,
+            employeeId: employees[siteIdx % employees.length].id,
+            date,
+            startTime: slot.startTime,
+            endTime: slot.endTime,
+            status: isPast ? MissionStatus.COMPLETED : MissionStatus.PLANNED,
+          },
+        });
+        missionCount++;
+      }
     }
+    dayOffset++;
   }
 
   // ========== MISSION + ABSENCE TEST (flow complet) ==========
@@ -196,7 +212,7 @@ async function main() {
   console.log(`   Gérant: Mohamed B. (${gerant.phone})`);
   console.log(`   Employés: ${employees.length}`);
   console.log(`   Sites: ${sites.length}`);
-  console.log(`   Missions: ${5 * sites.length} + 1 mission test absence (Ahmed M. 12h–15h)`);
+  console.log(`   Missions: ${missionCount} (lun–ven jusqu'au 3 avril) + 1 mission test absence (Ahmed M. 12h–15h)`);
   console.log(`   Absence pré-seedée : Ahmed M. → Optical Center Créteil 12h–15h (REPORTED)`);
 }
 

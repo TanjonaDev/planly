@@ -69,7 +69,7 @@ export default function ParametresPage() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow flex items-center gap-4"
+                    className="bg-white rounded-[1.5rem] p-4 shadow-sm hover:shadow-md transition-shadow flex items-center gap-4"
                   >
                     <div className={`w-12 h-12 rounded-full ${item.iconBg} flex items-center justify-center shrink-0`}>
                       <Icon size={24} className={item.iconColor} />
@@ -89,7 +89,7 @@ export default function ParametresPage() {
         {/* Déconnexion */}
         <button
           onClick={handleLogout}
-          className="w-full bg-white rounded-2xl p-4 shadow-sm hover:shadow-md hover:bg-red-50 transition-all border border-transparent hover:border-red-100 flex items-center gap-4"
+          className="w-full bg-white rounded-[1.5rem] p-4 shadow-sm hover:shadow-md hover:bg-red-50 transition-all border border-transparent hover:border-red-100 flex items-center gap-4"
         >
           <div className="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center shrink-0">
             <LogOut size={24} className="text-red-600" />

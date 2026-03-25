@@ -194,12 +194,12 @@ export default function ChecklistPage() {
     return (
       <div className="page">
         <div className="px-4 pt-6 pb-4 bg-white">
-          <div className="h-7 w-48 bg-gray-200 rounded-lg animate-pulse mb-2" />
-          <div className="h-4 w-36 bg-gray-100 rounded-lg animate-pulse" />
+          <div className="h-7 w-48 bg-gray-200 rounded-[2rem] animate-pulse mb-2" />
+          <div className="h-4 w-36 bg-gray-100 rounded-[2rem] animate-pulse" />
         </div>
         <div className="px-4 py-4 space-y-3">
           {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="h-16 bg-white rounded-2xl shadow-sm animate-pulse" />
+            <div key={i} className="h-16 bg-white rounded-[1.5rem] shadow-sm animate-pulse" />
           ))}
         </div>
       </div>
@@ -278,7 +278,7 @@ export default function ChecklistPage() {
       <div className="px-4 py-4 space-y-5">
         {!data.hasChecklist ? (
           /* Pas de checklist pour ce site */
-          <div className="bg-white rounded-2xl p-8 shadow-sm flex flex-col items-center gap-3 text-center">
+          <div className="bg-white rounded-[1.5rem] p-8 shadow-sm flex flex-col items-center gap-3 text-center">
             <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
               <ClipboardList size={28} className="text-gray-400" />
             </div>
@@ -305,7 +305,7 @@ export default function ChecklistPage() {
                   const missionDone = data.status === "COMPLETED";
 
                   return (
-                    <div key={item.id} className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <div key={item.id} className="bg-white rounded-[1.5rem] shadow-sm overflow-hidden">
                       <div
                         className={clsx(
                           "w-full flex items-center gap-4 px-4 transition-all",
@@ -355,7 +355,7 @@ export default function ChecklistPage() {
                             onClick={() => openPhotoPicker(item)}
                             disabled={isUploading}
                             className={clsx(
-                              "shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-colors",
+                              "shrink-0 w-11 h-11 rounded-[2rem] flex items-center justify-center transition-colors",
                               item.photoUrl
                                 ? "bg-green-100 text-green-600"
                                 : "bg-gray-100 text-gray-500"
@@ -376,7 +376,7 @@ export default function ChecklistPage() {
                           <img
                             src={item.photoUrl}
                             alt="Photo de la tâche"
-                            className="w-full max-h-48 object-cover rounded-xl"
+                            className="w-full max-h-48 object-cover rounded-[2rem]"
                           />
                         </div>
                       )}
@@ -404,7 +404,7 @@ export default function ChecklistPage() {
             onClick={completeMission}
             disabled={completing || (!allRequiredDone && data.hasChecklist)}
             className={clsx(
-              "w-full flex items-center justify-center gap-2 rounded-2xl py-4 font-bold text-base transition-all shadow-md",
+              "w-full flex items-center justify-center gap-2 rounded-[1.5rem] py-4 font-bold text-base transition-all shadow-md",
               allRequiredDone || !data.hasChecklist
                 ? "bg-gray-900 text-white active:bg-gray-800"
                 : "bg-gray-100 text-gray-400 cursor-not-allowed"
@@ -418,7 +418,7 @@ export default function ChecklistPage() {
 
       {data.status === "COMPLETED" && (
         <div className="mx-4 mb-4">
-          <div className="bg-green-50 rounded-2xl p-5 flex items-center gap-3">
+          <div className="bg-green-50 rounded-[1.5rem] p-5 flex items-center gap-3">
             <CheckCircle2 size={28} className="text-green-600 shrink-0" />
             <div>
               <p className="font-bold text-green-800">Mission terminée</p>

@@ -45,7 +45,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         {/* Logo */}
         <div className="flex flex-col items-center mb-12">
-          <div className="w-20 h-20 bg-brand-600 rounded-2xl flex items-center justify-center mb-4 shadow-lg">
+          <div className="w-20 h-20 bg-brand-600 rounded-[1.5rem] flex items-center justify-center mb-4 shadow-lg">
             <span className="text-white text-3xl font-bold">PL</span>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Planly</h1>
@@ -55,13 +55,13 @@ export default function LoginPage() {
         {isDev ? (
           <div className="space-y-4">
             {/* Mode dev badge */}
-            <div className="bg-yellow-50 border border-yellow-200 rounded-xl px-4 py-2.5 text-center">
+            <div className="bg-yellow-50 border border-yellow-200 rounded-[2rem] px-4 py-2.5 text-center">
               <p className="text-yellow-800 text-sm font-medium">Mode développement</p>
             </div>
 
             <button
               onClick={devLoginGerant}
-              className="w-full bg-brand-600 text-white font-semibold py-4 rounded-xl hover:bg-brand-700 transition-colors shadow-md text-body"
+              className="w-full bg-brand-600 text-white font-semibold py-4 rounded-[2rem] hover:bg-brand-700 transition-colors shadow-md text-body"
             >
               Se connecter en tant que Gérant
             </button>
@@ -73,13 +73,13 @@ export default function LoginPage() {
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && devLoginEmploye()}
-                className="w-full border border-gray-200 rounded-xl px-4 py-4 text-body focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent bg-gray-50"
+                className="w-full border border-gray-200 rounded-[2rem] px-4 py-4 text-body focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent bg-gray-50"
               />
               {error && <p className="text-sm text-red-500">{error}</p>}
               <button
                 onClick={devLoginEmploye}
                 disabled={!phone}
-                className="w-full text-gray-500 font-medium py-4 rounded-xl hover:bg-gray-50 transition-colors disabled:opacity-40 text-body"
+                className="w-full text-gray-500 font-medium py-4 rounded-[2rem] hover:bg-gray-50 transition-colors disabled:opacity-40 text-body"
               >
                 Se connecter en tant qu'Employé
               </button>
@@ -88,8 +88,8 @@ export default function LoginPage() {
         ) : (
           <div className="space-y-3">
             <button
-              onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
-              className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-xl px-4 py-4 text-body font-medium bg-white hover:bg-gray-50 active:bg-gray-100 transition-colors shadow-sm"
+              onClick={() => signIn("google", { callbackUrl: "/auth/route" })}
+              className="w-full flex items-center justify-center gap-3 border border-gray-200 rounded-[2rem] px-4 py-4 text-body font-medium bg-white hover:bg-gray-50 active:bg-gray-100 transition-colors shadow-sm"
             >
               <svg width="22" height="22" viewBox="0 0 24 24">
                 <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />

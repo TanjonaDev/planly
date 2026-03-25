@@ -24,6 +24,10 @@ const config: Config = {
           info: "#3B82F6",
         },
       },
+      fontFamily: {
+        headline: ['var(--font-manrope)', 'Manrope', 'sans-serif'],
+        body: ['var(--font-inter)', 'Inter', 'sans-serif'],
+      },
       fontSize: {
         // Mobile-first: bigger defaults
         "body": ["1rem", "1.5rem"],       // 16px

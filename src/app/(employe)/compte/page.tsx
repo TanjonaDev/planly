@@ -27,7 +27,7 @@ export default function ComptePage() {
 
       <div className="px-4 py-4 space-y-3">
         {/* Avatar placeholder */}
-        <div className="bg-white rounded-2xl shadow-sm px-4 py-5 flex items-center gap-4">
+        <div className="bg-white rounded-[1.5rem] shadow-sm px-4 py-5 flex items-center gap-4">
           <div className="w-14 h-14 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
             <User size={24} className="text-white" />
           </div>
@@ -40,9 +40,9 @@ export default function ComptePage() {
         {/* Déconnexion */}
         <button
           onClick={handleLogout}
-          className="w-full bg-white rounded-2xl shadow-sm px-4 py-4 flex items-center gap-3 text-left active:bg-gray-50 transition-colors"
+          className="w-full bg-white rounded-[1.5rem] shadow-sm px-4 py-4 flex items-center gap-3 text-left active:bg-gray-50 transition-colors"
         >
-          <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center shrink-0">
+          <div className="w-10 h-10 rounded-[2rem] bg-red-50 flex items-center justify-center shrink-0">
             <LogOut size={20} className="text-red-500" />
           </div>
           <span className="font-semibold text-red-500">Se déconnecter</span>
